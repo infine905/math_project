@@ -4,8 +4,8 @@ namespace UI {
     Window::Window(ImGuiIO &io) : io(io) {
         io = ImGui::GetIO();
         show_demo_window = false;
-        show_another_window = false;
-        clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+        task_selected = 1;
+        const char* tasks[]{"Задача 2", "Задача 5"};
     }
 
     void Window::Render(GLFWwindow* window) {
@@ -17,41 +17,63 @@ namespace UI {
         glfwGetWindowSize(window, &window_width, &window_height);
 
         if(show_demo_window)
-            ImGui::ShowDemoWindow();
+            //ImGui::ShowDemoWindow();
+            ImPlot::ShowDemoWindow(&show_demo_window);
 
         ImGui::SetNextWindowPos(ImVec2(0,0));
         ImGui::SetNextWindowSize(ImVec2((float)(window_width * 0.25), (float)window_height));
-        ImGui::Begin(window_title, (bool*)true, (ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar));
+        if (ImGui::Begin(window_title, (bool*)true, (ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar)))
         {
-            static float f = 0.0f;
-            static int counter = 0;
-
-            ImGui::Text("This is some useful text.");
             ImGui::Checkbox("Demo Window", &show_demo_window);
-            ImGui::Checkbox("Another Window", &show_another_window);
-
-            ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
-            ImGui::ColorEdit3("clear color", (float*)&clear_color);
-
-            if (ImGui::Button("Button"))
-                counter++;
-            ImGui::SameLine();
-            ImGui::Text("counter = %d", counter);
-
+            ImGui::Combo("Задача", &task_selected, tasks, 2);
+            if (task_selected == 0) {
+                ImGui::InputDouble("x0", &task2.x0);
+                ImGui::InputDouble("y0", &task2.y0);
+                ImGui::InputDouble("h", &task2.h);
+                ImGui::InputInt("n", &task2.n);
+            } else if (task_selected == 1) {
+                ImGui::InputDouble("x0", &task5.x0);
+                ImGui::InputDouble("y0", &task5.y0);
+                ImGui::InputDouble("C", &task5.C);
+                ImGui::InputDouble("C1", &task5.C1);
+                ImGui::InputDouble("C2", &task5.C2);
+                ImGui::InputDouble("h", &task5.h);
+                ImGui::InputInt("n", &task5.n);
+            } else { }
             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
             ImGui::End();
         }
 
-        if (show_another_window) {
-            ImGui::SetNextWindowPos(ImVec2((float)(window_width * 0.25),0));
-            ImGui::SetNextWindowSize(ImVec2((float)(window_width * 0.75), (float)window_height));
-            ImGui::Begin("Another Window", &show_another_window, (ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar));
-            {
-                ImGui::Text("Hello from another window!");
-                if (ImGui::Button("Close Me"))
-                    show_another_window = false;
-            } ImGui::End();
-        }
+        ImGui::SetNextWindowPos(ImVec2((float)(window_width * 0.25),0));
+        ImGui::SetNextWindowSize(ImVec2((float)(window_width * 0.75), (float)(window_height*1)));
+        ImGui::Begin("Another Window", (bool*)true, (ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar));
+        {
+            if (task_selected == 0) {
+                points = task2_graph(task2.x0, task2.y0, task2.h, task2.n);
+                if (ImPlot::BeginPlot("Решение Дифференциального Уравнения", ImVec2(ImGui::GetWindowWidth(), ImGui::GetWindowHeight()))) {
+                    std::vector<float> x_values, y_values;
+                    for (const auto &p: points) {
+                        x_values.push_back(p.first);
+                        y_values.push_back(p.second);
+                    }
+                    ImPlot::PlotLine("y(x)", x_values.data(), y_values.data(), points.size(), ImPlotLineFlags_Loop);
+                    ImPlot::EndPlot();
+                }
+            } else if (task_selected == 1) {
+                if (ImPlot::BeginPlot("Решение Дифференциального Уравнения", ImVec2(ImGui::GetWindowWidth(), ImGui::GetWindowHeight())))
+                {
+                    points = task5_graph(task5.x0, task5.y0, task5.C, task5.C1, task5.C2, task5.h, task5.n);
+                    std::vector<float> x_values, y_values;
+                    for (const auto &p: points) {
+                        x_values.push_back(p.first);
+                        y_values.push_back(p.second);
+                    }
+                    ImPlot::SetupAxisScale(ImAxis_X1, ImPlotScale_Linear);
+                    ImPlot::PlotLine("y(x)", x_values.data(), y_values.data(), points.size());
+                    ImPlot::EndPlot();
+                }
+            } else {}
+        } ImGui::End();
         ImGui::Render();
     }
 
@@ -60,7 +82,7 @@ namespace UI {
         mStyle.FramePadding         = ImVec2( 4, 2 );
         mStyle.ItemSpacing          = ImVec2( 6, 2 );
         mStyle.ItemInnerSpacing     = ImVec2( 6, 4 );
-        mStyle.Alpha                = 0.95f;
+        mStyle.Alpha                = 1.f;
         mStyle.WindowRounding       = 0.0f;
         mStyle.FrameRounding        = 2.0f;
         mStyle.IndentSpacing        = 6.0f;
@@ -109,10 +131,6 @@ namespace UI {
         style.Colors[ImGuiCol_PlotHistogramHovered]  = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
         style.Colors[ImGuiCol_TextSelectedBg]        = ImVec4(0.92f, 0.18f, 0.29f, 0.43f);
         style.Colors[ImGuiCol_PopupBg]               = ImVec4(0.20f, 0.22f, 0.27f, 0.9f);
-    }
-
-    ImVec4 Window::get_clear_color() {
-        return clear_color;
     }
 }
 
