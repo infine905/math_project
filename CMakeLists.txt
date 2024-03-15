@@ -29,6 +29,9 @@ target_sources(${CMAKE_PROJECT_NAME}
         ${sources}
 )
 
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
+        ports/imguiDock/)
+
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
         ${OPENGL_gl_LIBRARY}
         glfw

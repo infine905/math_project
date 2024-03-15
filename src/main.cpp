@@ -50,11 +50,11 @@ int main(int, char**)
     io.Fonts->AddFontFromFileTTF(R"(c:\Windows\Fonts\ArialUni.ttf)", 18.0f, nullptr, io.Fonts->GetGlyphRangesCyrillic());
 
     UI::Window ProgramWind(io);
+
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
 
-        ProgramWind.Render();
-
+        ProgramWind.Render(window);
 
         glfwGetFramebufferSize(window, &display_w, &display_h);
         glViewport(0, 0, display_w, display_h);
