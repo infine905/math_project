@@ -1,5 +1,5 @@
 ./.idea/
-./build/*
+./build/
 ./third_party/vcpkg/*
 CMakeLists.txt.user
 CMakeCache.txt
