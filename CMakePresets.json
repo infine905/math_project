@@ -10,7 +10,7 @@
         "CMAKE_C_COMPILER": "clang",
         "CMAKE_CXX_COMPILER": "clang++",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
-        "CMAKE_TOOLCHAIN_FILE": "C:\\Users\\nekit\\.vcpkg-clion\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake",
+        "CMAKE_TOOLCHAIN_FILE": "./third_party/vcpkg/scripts/buildsystems/vcpkg.cmake",
         "VCPKG_TARGET_TRIPLET": "x64-windows"
       }
     },
