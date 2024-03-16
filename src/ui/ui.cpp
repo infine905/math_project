@@ -4,11 +4,9 @@ namespace UI {
     Window::Window(ImGuiIO &io) : io(io) {
         io = ImGui::GetIO();
         show_demo_window = false;
-        //task_selected = 1;
     }
 
     void Window::Render(GLFWwindow* window) {
-
         SetOwnStyle(ImGui::GetStyle());
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
@@ -47,24 +45,24 @@ namespace UI {
         ImGui::Begin("Another Window", (bool*)true, (ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar));
         {
             if (task_selected == 0) {
-                points = task2_graph(task2.x0, task2.y0, task2.h, task2.n);
-                if (ImPlot::BeginPlot("Решение Дифференциального Уравнения", ImVec2(ImGui::GetWindowWidth(), ImGui::GetWindowHeight()))) {
+                points = calc::task2_graph(task2.x0, task2.y0, task2.h, task2.n);
+                if (ImPlot::BeginPlot("График", ImVec2(ImGui::GetWindowWidth(), ImGui::GetWindowHeight()))) {
                     std::vector<float> x_values, y_values;
                     for (const auto &p: points) {
-                        x_values.push_back(p.first);
-                        y_values.push_back(p.second);
+                        x_values.push_back((float)p.first);
+                        y_values.push_back((float)p.second);
                     }
                     ImPlot::PlotLine("y(x)", x_values.data(), y_values.data(), points.size());
                     ImPlot::EndPlot();
                 }
             } else if (task_selected == 1) {
-                if (ImPlot::BeginPlot("Решение Дифференциального Уравнения", ImVec2(ImGui::GetWindowWidth(), ImGui::GetWindowHeight())))
+                if (ImPlot::BeginPlot("График", ImVec2(ImGui::GetWindowWidth(), ImGui::GetWindowHeight())))
                 {
-                    points = task5_graph(task5.x0, task5.y0, task5.C, task5.C1, task5.C2, task5.h, task5.n);
+                    points = calc::task5_graph(task5.x0, task5.y0, task5.C, task5.C1, task5.C2, task5.h, task5.n);
                     std::vector<float> x_values, y_values;
                     for (const auto &p: points) {
-                        x_values.push_back(p.first);
-                        y_values.push_back(p.second);
+                        x_values.push_back((float)p.first);
+                        y_values.push_back((float)p.second);
                     }
                     ImPlot::SetupAxisScale(ImAxis_X1, ImPlotScale_Linear);
                     ImPlot::PlotLine("y(x)", x_values.data(), y_values.data(), points.size());
