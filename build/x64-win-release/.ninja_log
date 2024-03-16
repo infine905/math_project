@@ -1,6 +1,0 @@
-# ninja log v5
-20	2278	7322816127681311	CMakeFiles/Plotting.dir/src/core/task5.cpp.obj	61477640b948b458
-12	2887	7322816133783073	CMakeFiles/Plotting.dir/src/main.cpp.obj	eb1e1167e866f038
-2	3108	7322816135892995	CMakeFiles/Plotting.dir/src/ui/ui.cpp.obj	8f8a1863969e50a9
-2287	4437	7322816149137854	CMakeFiles/Plotting.dir/src/core/task2.cpp.obj	6fa3a707b1782854
-4438	10245	7322816152571270	Plotting.exe	d276f95126b1d167
