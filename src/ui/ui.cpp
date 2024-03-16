@@ -131,4 +131,3 @@ namespace UI {
         style.Colors[ImGuiCol_PopupBg]               = ImVec4(0.20f, 0.22f, 0.27f, 0.9f);
     }
 }
-
