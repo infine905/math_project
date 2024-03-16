@@ -1,4 +1,4 @@
-./.idea/
+./.idea/*
 ./build/*
 CMakeLists.txt.user
 CMakeCache.txt
