@@ -1,6 +1,6 @@
 ./.idea/
 ./build/
-./third_party/vcpkg/*
+./third_party/vcpkg/
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles
