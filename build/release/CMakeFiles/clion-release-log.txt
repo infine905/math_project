@@ -1,0 +1,19 @@
+"C:\Program Files\JetBrains\CLion 2023.3.4\bin\cmake\win\x64\bin\cmake.exe" --preset release -S C:\Users\notebook_PC\CLionProjects\math_project -B C:\Users\notebook_PC\CLionProjects\math_project\build\release
+Preset CMake variables:
+
+  CMAKE_BUILD_TYPE="MinSizeRel"
+  CMAKE_CXX_COMPILER="clang++"
+  CMAKE_C_COMPILER="clang"
+  CMAKE_EXPORT_COMPILE_COMMANDS="ON"
+  CMAKE_TOOLCHAIN_FILE="./third_party/vcpkg/scripts/buildsystems/vcpkg.cmake"
+  VCPKG_TARGET_TRIPLET="x64-windows"
+
+CMake Error at C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/CMakeDetermineSystem.cmake:154 (message):
+  Could not find toolchain file:
+  ./third_party/vcpkg/scripts/buildsystems/vcpkg.cmake
+Call Stack (most recent call first):
+  CMakeLists.txt:3 (project)
+
+
+CMake Error: CMake was unable to find a build program corresponding to "Ninja".  CMAKE_MAKE_PROGRAM is not set.  You probably need to select a different build tool.
+-- Configuring incomplete, errors occurred!
