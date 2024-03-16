@@ -2,7 +2,7 @@
   "version": 6,
   "configurePresets": [
     {
-      "name": "base",
+      "name": "x64-win-base",
       "binaryDir": "${sourceDir}/build/${presetName}",
       "hidden": true,
       "generator": "Ninja",
@@ -15,17 +15,17 @@
       }
     },
     {
-      "name": "debug",
-      "displayName": "Debug",
-      "inherits": "base",
+      "name": "x64-win-debug",
+      "displayName": "x64-win-release",
+      "inherits": "x64-win-base",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug"
       }
     },
     {
-      "name": "release",
-      "displayName": "Release",
-      "inherits": "base",
+      "name": "x64-win-release",
+      "displayName": "x64-win-release",
+      "inherits": "x64-win-base",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "MinSizeRel"
       }

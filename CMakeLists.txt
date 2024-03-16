@@ -1,12 +1,11 @@
 cmake_minimum_required(VERSION 3.25)
 
-project(untitled C CXX)
+project(Plotting C CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(${CMAKE_PROJECT_NAME})
-
 
 set(sources
         src/main.cpp

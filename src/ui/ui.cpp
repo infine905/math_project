@@ -25,18 +25,18 @@ namespace UI {
             ImGui::Checkbox("Demo Window", &show_demo_window);
             ImGui::Combo("Задача", &task_selected, tasks, 2);
             if (task_selected == 0) {
-                ImGui::InputDouble("x0", &task2.x0);
-                ImGui::InputDouble("y0", &task2.y0);
-                ImGui::InputDouble("h", &task2.h);
-                ImGui::InputInt("n", &task2.n);
+                ImGui::InputDouble("x0", &task2.x0, 0.1, 0.0, "%.1f");
+                ImGui::InputDouble("y0", &task2.y0, 0.1, 0.0, "%.1f");
+                ImGui::InputDouble("h", &task2.h, 0.01, 0.0, "%.3f");
+                ImGui::InputInt("n", &task2.n, 100);
             } else if (task_selected == 1) {
                 ImGui::InputDouble("x0", &task5.x0, 0.0, 0.0, "%.1f");
                 ImGui::InputDouble("y0", &task5.y0, 0.0, 0.0, "%.1f");
                 ImGui::InputDouble("C", &task5.C, 0.0, 0.0, "%.1f");
                 ImGui::InputDouble("C1", &task5.C1, 0.0, 0.0, "%.1f");
                 ImGui::InputDouble("C2", &task5.C2, 0.0, 0.0, "%.1f");
-                ImGui::InputDouble("h", &task5.h, 0.0, 0.0, "%.1f");
-                ImGui::InputInt("n", &task5.n);
+                ImGui::InputDouble("h", &task5.h, 0.0, 0.0, "%.3f");
+                ImGui::InputInt("n", &task5.n, 100);
             } else { }
             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
             ImGui::End();
@@ -54,7 +54,7 @@ namespace UI {
                         x_values.push_back(p.first);
                         y_values.push_back(p.second);
                     }
-                    ImPlot::PlotLine("y(x)", x_values.data(), y_values.data(), points.size(), ImPlotLineFlags_Loop);
+                    ImPlot::PlotLine("y(x)", x_values.data(), y_values.data(), points.size());
                     ImPlot::EndPlot();
                 }
             } else if (task_selected == 1) {

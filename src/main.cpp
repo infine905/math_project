@@ -57,7 +57,7 @@ int main(int, char**)
 
         glfwGetFramebufferSize(window, &display_w, &display_h);
         glViewport(0, 0, display_w, display_h);
-        //glClearColor(ProgramWind.get_clear_color().x, ProgramWind.get_clear_color().y, ProgramWind.get_clear_color().z, ProgramWind.get_clear_color().w);
+        glClearColor(255,255,255,255);
         glClear(GL_COLOR_BUFFER_BIT);
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
