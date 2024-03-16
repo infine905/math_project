@@ -23,24 +23,24 @@ namespace UI {
             int window_width{};
             int window_height{};
             bool show_demo_window;
-            int task_selected;
+            int task_selected = 0;
             const char* tasks[2]{"Задача 2", "Задача 5"};
 
             struct {
                 double x0 = -1.0;
                 double y0 = 0.0;
-                double h = 0.1;
-                int n = 10;
+                double h = 0.01;
+                int n = 1000;
             } task2;
 
             struct {
                 double x0 = 0.0;
-                double y0 = 0.0;
-                double C = 1;
+                double y0 = 6.0;
+                double C = 5;
                 double C1 = 1;
-                double C2 = 1;
+                double C2 = 0;
                 double h = 0.01f;
-                int n = 10000;
+                int n = 1000;
             } task5;
             std::vector<std::pair<double, double>> points;
             static void SetOwnStyle(ImGuiStyle &mStyle);

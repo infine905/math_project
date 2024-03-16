@@ -4,8 +4,7 @@ namespace UI {
     Window::Window(ImGuiIO &io) : io(io) {
         io = ImGui::GetIO();
         show_demo_window = false;
-        task_selected = 1;
-        const char* tasks[]{"Задача 2", "Задача 5"};
+        //task_selected = 1;
     }
 
     void Window::Render(GLFWwindow* window) {
@@ -17,8 +16,7 @@ namespace UI {
         glfwGetWindowSize(window, &window_width, &window_height);
 
         if(show_demo_window)
-            //ImGui::ShowDemoWindow();
-            ImPlot::ShowDemoWindow(&show_demo_window);
+            ImGui::ShowDemoWindow();
 
         ImGui::SetNextWindowPos(ImVec2(0,0));
         ImGui::SetNextWindowSize(ImVec2((float)(window_width * 0.25), (float)window_height));
@@ -32,12 +30,12 @@ namespace UI {
                 ImGui::InputDouble("h", &task2.h);
                 ImGui::InputInt("n", &task2.n);
             } else if (task_selected == 1) {
-                ImGui::InputDouble("x0", &task5.x0);
-                ImGui::InputDouble("y0", &task5.y0);
-                ImGui::InputDouble("C", &task5.C);
-                ImGui::InputDouble("C1", &task5.C1);
-                ImGui::InputDouble("C2", &task5.C2);
-                ImGui::InputDouble("h", &task5.h);
+                ImGui::InputDouble("x0", &task5.x0, 0.0, 0.0, "%.1f");
+                ImGui::InputDouble("y0", &task5.y0, 0.0, 0.0, "%.1f");
+                ImGui::InputDouble("C", &task5.C, 0.0, 0.0, "%.1f");
+                ImGui::InputDouble("C1", &task5.C1, 0.0, 0.0, "%.1f");
+                ImGui::InputDouble("C2", &task5.C2, 0.0, 0.0, "%.1f");
+                ImGui::InputDouble("h", &task5.h, 0.0, 0.0, "%.1f");
                 ImGui::InputInt("n", &task5.n);
             } else { }
             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
