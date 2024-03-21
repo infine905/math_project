@@ -22,7 +22,6 @@ namespace UI {
             ImGuiIO& io;
             int window_width{};
             int window_height{};
-            bool show_demo_window;
             int task_selected = 0;
             const char* tasks[2]{"Задача 2", "Задача 5"};
 

@@ -3,7 +3,6 @@
 namespace UI {
     Window::Window(ImGuiIO &io) : io(io) {
         io = ImGui::GetIO();
-        show_demo_window = false;
     }
 
     void Window::Render(GLFWwindow* window) {
@@ -13,14 +12,10 @@ namespace UI {
         ImGui::NewFrame();
         glfwGetWindowSize(window, &window_width, &window_height);
 
-        if(show_demo_window)
-            ImGui::ShowDemoWindow();
-
         ImGui::SetNextWindowPos(ImVec2(0,0));
         ImGui::SetNextWindowSize(ImVec2((float)(window_width * 0.25), (float)window_height));
         if (ImGui::Begin(window_title, (bool*)true, (ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar)))
         {
-            ImGui::Checkbox("Demo Window", &show_demo_window);
             ImGui::Combo("Задача", &task_selected, tasks, 2);
             if (task_selected == 0) {
                 ImGui::InputDouble("x0", &task2.x0, 0.1, 0.0, "%.1f");
@@ -44,31 +39,30 @@ namespace UI {
         ImGui::SetNextWindowSize(ImVec2((float)(window_width * 0.75), (float)(window_height*1)));
         ImGui::Begin("Another Window", (bool*)true, (ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar));
         {
-            if (task_selected == 0) {
-                points = calc::task2_graph(task2.x0, task2.y0, task2.h, task2.n);
-                if (ImPlot::BeginPlot("График", ImVec2(ImGui::GetWindowWidth(), ImGui::GetWindowHeight()))) {
+            if (ImPlot::BeginPlot("График", ImVec2(-1, -1))) {
+                if (task_selected == 0) {
+                    points = calc::task2_graph(task2.x0, task2.y0, task2.h, task2.n);
+
                     std::vector<float> x_values, y_values;
                     for (const auto &p: points) {
-                        x_values.push_back((float)p.first);
-                        y_values.push_back((float)p.second);
+                        x_values.push_back((float) p.first);
+                        y_values.push_back((float) p.second);
                     }
                     ImPlot::PlotLine("y(x)", x_values.data(), y_values.data(), points.size());
                     ImPlot::EndPlot();
-                }
-            } else if (task_selected == 1) {
-                if (ImPlot::BeginPlot("График", ImVec2(ImGui::GetWindowWidth(), ImGui::GetWindowHeight())))
-                {
+
+                } else if (task_selected == 1) {
                     points = calc::task5_graph(task5.x0, task5.y0, task5.C, task5.C1, task5.C2, task5.h, task5.n);
                     std::vector<float> x_values, y_values;
                     for (const auto &p: points) {
-                        x_values.push_back((float)p.first);
-                        y_values.push_back((float)p.second);
+                        x_values.push_back((float) p.first);
+                        y_values.push_back((float) p.second);
                     }
                     ImPlot::SetupAxisScale(ImAxis_X1, ImPlotScale_Linear);
                     ImPlot::PlotLine("y(x)", x_values.data(), y_values.data(), points.size());
                     ImPlot::EndPlot();
-                }
-            } else {}
+                } else {}
+            }
         } ImGui::End();
         ImGui::Render();
     }

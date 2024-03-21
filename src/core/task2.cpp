@@ -9,7 +9,7 @@ namespace calc {
 
         for (int i = 0; i < n; ++i) {
             y += h * (1.0 / (x + y));
-            x += h;
+            x += h  ;
             points.emplace_back(x, y);
         }
         return points;

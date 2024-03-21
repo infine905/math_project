@@ -5,13 +5,15 @@
     "glfw3",
     "freetype",
     "implot",
+    "lunasvg",
     {
       "name": "imgui",
       "features": [
         "opengl3-binding",
         "glfw-binding",
         "win32-binding",
-        "freetype"
+        "freetype",
+        "freetype-lunasvg"
       ]
     }
   ]
